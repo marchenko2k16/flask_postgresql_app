@@ -133,7 +133,7 @@ def new_message():
             # b = db.sqlalchemy_session.query(User).filter(User.Username == form.Username.data).all()
 
             if not a:
-                return redirect(url_for('index_message'))
+                return redirect(url_for('new_message'))
             # if b:
             #     return redirect(url_for('index_user'))
 
@@ -193,8 +193,8 @@ def delete_message():
     allMesages = db.sqlalchemy_session.query(User).all()
 
     message_id = request.args.get('name')
-    thisMessage = db.sqlalchemy_session.query(allMesages).filter(Message.MessageID == message_id).first()
-   
+    thisMessage = db.sqlalchemy_session.query(Message).filter(Message.MessageID == message_id).one()
+
     db.sqlalchemy_session.delete(thisMessage)
     db.sqlalchemy_session.commit()
 
